@@ -97,7 +97,10 @@ def draw_car_body():
         # -----------------------------
 
     # middle collumn
-    rect((500, 400), cullumn_center_width, 100)
+    rect((490, 515), cullumn_center_width, 90)
+
+    # top collumn
+    rect((370,515),200 ,10)
 
     # front collumn
     with push_matrix():
@@ -107,6 +110,11 @@ def draw_car_body():
         rotate(radians(-40))
         rect((0, 0), collumn_width, 120)
         # -----------------------------
+
+    stroke(0,0,0)
+    # car details
+    line((530,650),(530,600))
+    #line((530,650),(530,600))
 
     # TODO : windows
 
@@ -129,16 +137,18 @@ def draw_car_wheels():
     # Right Arc
     arc((right_arc_x, arc_y), arc_width, arc_height, 0, PI)
  
+
     # TODO : Wheels
     fill(60, 72, 60)
 
     # Left wheel
+    fill(70,70,70)
     circle((left_arc_x, arc_y), 30)
 
+    # Right wheel
     circle((right_arc_x, arc_y), 30)
 
 
-    # Right wheel
     
     with push_matrix():
         no_fill()
@@ -147,7 +157,9 @@ def draw_car_wheels():
         rotate(radians(ang))
         circle((0,0), 50)
         ang += 1
-    
+        # -----------------------------
+
+
     with push_matrix():
         no_fill()
         stroke(0, 0, 0)
@@ -156,8 +168,10 @@ def draw_car_wheels():
         rotate(radians(ang))
         circle((0,0), 50)
         ang += 1
+        # -----------------------------
 
-    
+    #fill(0,0,0)
+    #circle((left_arc_x,arc_y),40)
 
     # TODO : Tires
 
@@ -166,24 +180,44 @@ def draw_car_wheels():
 
 """ Function that draws the buildings
 """
-def draw_buildings():
-    fill(0, 255, 0)
-    
+def draw_buildings(pos_x = 0, pos_y = 0, width = 100, height = 200):
 
-    # TODO : Draw more buildings
-
-    # TODO : Smaller buildings (require position parameters)
-    rect((200, 200), 100, 200)
+    fill(118, 123, 126)
+    rect((pos_x, pos_y), width, height)
 
 
-    # TODO : Draw Windows
+    # windows
+
+    # TOP ROW
+    for i in range(0, 3):
+        fill(100, 100, 100)
+        rect((pos_x + 15 / pos_x + (i * 20), pos_y + 10), width/10, height/10)
+        # --------------------------------------------------------------------
+
+    # MIDDLE ROW
+    for i in range(0, 3):
+        fill(100, 100, 100)
+        rect((pos_x + 15 + (i * 20), pos_y + 40), width/10, height/10)
+        # --------------------------------------------------------------------
+
+    # BOTTOM ROW
+    for i in range(0, 3):
+        fill(100, 100, 100)
+        rect((pos_x + 15 + (i * 20), pos_y + 70), width/10, height/10)
+        # --------------------------------------------------------------------
+
+
 
 
 def background_():
 
-    # TODO : Mountains
+    # TODO : * Mountains *
+
+    # TODO : Receive line position as parameter
+
 
     # TODO : Draw windmill
+    
     pass
 
 # --------------------------------------------------------
@@ -200,9 +234,8 @@ def draw():
     background(72)
 
     street()
-    draw_buildings()
+    draw_buildings(300, 200, 50, 80)
     draw_car_body()
     draw_car_wheels()
-    
-    
+      
 run()
