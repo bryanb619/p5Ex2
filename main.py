@@ -21,6 +21,8 @@ window_width = 1200
 window_height = 800
 window_title = "LAB-IMFJV-1 - Aluno: Steven Hall 22001753"
 frame_count = 0 
+# Rotation angle 
+ang = 0
 
 
 """ Car Settings """ 
@@ -44,16 +46,19 @@ left_arc_x = 450
 # right arc
 right_arc_x = 650
 
+
 # common arc settings
 arc_y = 700
-arc_width = 80
+arc_width = 80s
 arc_height = -80
-
+# -----------------------------
 
 """ Buildings Settings """
 """ Background Settings """
+""" Windmill Settings """
+mill_angle = 0
 
-ang = 0
+
 
 """ Function that sets up the window
     1. Sets the size
@@ -67,7 +72,8 @@ def setup():
 
 def street():
     #fill(48, 40,40)
-    #rect((300, 700), 100, 100)
+    #rect((300, 700), 100, 100) 
+    # TODO : Discover something better than a rect, maybe an elipse
     pass
 # --------------------------------------------------------
 
@@ -116,7 +122,7 @@ def draw_car_body():
     line((530,650),(530,600))
     #line((530,650),(530,600))
 
-    # TODO : windows
+    # TODO : car windows
 
 # --------------------------------------------------------
 
@@ -136,7 +142,6 @@ def draw_car_wheels():
 
     # Right Arc
     arc((right_arc_x, arc_y), arc_width, arc_height, 0, PI)
- 
 
     # TODO : Wheels
     fill(60, 72, 60)
@@ -208,17 +213,40 @@ def draw_buildings(pos_x = 0, pos_y = 0, width = 100, height = 200):
 
 
 
+"""function draws moutains
 
-def background_():
-
-    # TODO : * Mountains *
-
-    # TODO : Receive line position as parameter
-
-
-    # TODO : Draw windmill
-    
+"""
+def background_(pos_x_1, pos_y_1,pos_x_2, pos_y_2):
     pass
+    # TODO : * Mountains *
+    # TODO : Receive line position as parameter
+    #line((pos_x_1, pos_y_1), (pos_x_2, pos_y_2))
+
+
+
+# --------------------------------------------------------
+"""Function draws a windmill
+    1.
+    2.
+    3.
+    4.
+"""
+def windmill():
+    # TODO : Draw windmill
+    rect ((700),(200),10,20)
+    triangle((700,200),(700,220),(710,210)) # CONFIGURAR TRIANGULO
+
+    for i in range(0,4):
+
+        # line 
+        # line((700,200),(700,220)) # CONFIGURAR LINHA
+
+        with push_matrix():
+            global ang
+            rect((700,200),10,20) # CONFIGURAR RETANGULO
+            # aplicar rotação CORRETA   https://p5.readthedocs.io/en/latest/tutorials/2D%20transformations.html#rotation
+            # ang += 1
+            # -----------------------------
 
 # --------------------------------------------------------
 
