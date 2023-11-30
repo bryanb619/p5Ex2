@@ -5,16 +5,25 @@
 
     References:
 
-    p5: 
+    p5 ---->
         - doc: https://p5.readthedocs.io/en/latest/tutorials/2D%20transformations.html
         - rotations: https://p5.readthedocs.io/en/latest/tutorials/2D%20transformations.html#rotation
         - push & pop: https://p5.readthedocs.io/en/latest/tutorials/2D%20transformations.html#push-and-pop
     
-    art: 
+    art ---->
         - car: https://assetstore.unity.com/packages/tools/physics/2d-car-73763
 """
 
 from p5 import *
+
+
+class Building:
+    def __init__(self,buildingSize_x, buildingSize_y):
+        self.buildingSize_x = buildingSize_x; 
+        self.buildingSize_y = buildingSize_y;
+
+
+
 
 """ Window Settings """ 
 window_width = 1200
@@ -49,7 +58,7 @@ right_arc_x = 650
 
 # common arc settings
 arc_y = 700
-arc_width = 80s
+arc_width = 80
 arc_height = -80
 # -----------------------------
 
@@ -129,6 +138,7 @@ def draw_car_body():
 """Function that draws the car wheels
 """
 def draw_car_wheels():
+
     global ang
 
     # stroke collor
@@ -183,48 +193,77 @@ def draw_car_wheels():
 
 # --------------------------------------------------------
 
-""" Function that draws the buildings
-"""
-def draw_buildings(pos_x = 0, pos_y = 0, width = 100, height = 200):
+""" Function that draws a building
 
+    :param pos_x: building position X
+    :param pos_y: building position Y
+    :param width: building width
+    :param height: building height
+
+    1. Draws the main building with givem parameters
+    2. Draws the windows
+    3. Uses a for loop until 9 windows are complete
+    4. width and height are divided by 10 = to get always the same size windows  and transform
+    5. windows also use pos_x and pos_y to be drawn
+    6. For loop uses i to increment the position of the windows
+    7. i is multiplied by a value to increment the position of the windows
+    8. heightAddValue is used to increment the position of the windows in the Y axis (lower in the canvas)
+    9. multValue is used to increment the position of the windows in the X axis (right in the canvas)~
+    10. rect is applyed to draw the windows using the values calculated in the for loop
+
+    Called functions:
+        - change_window_values()
+
+"""
+def draw_building(pos_x = 0, pos_y = 0, width = 100, height = 200):
+
+    heightAddValue = 0
+    multValue = 0
+    windowIncrement = 1
+ 
     fill(118, 123, 126)
     rect((pos_x, pos_y), width, height)
 
 
-    # windows
-
-    # TOP ROW
-    for i in range(0, 3):
+    for windowIncrement in range(0, 9):
         fill(100, 100, 100)
-        rect((pos_x + 15 / pos_x + (i * 20), pos_y + 10), width/10, height/10)
+
+        rect((pos_x + 10 / pos_x + (windowIncrement * multValue), pos_y + heightAddValue), width/10, height/10)
+        #change_window_values()
         # --------------------------------------------------------------------
 
-    # MIDDLE ROW
-    for i in range(0, 3):
-        fill(100, 100, 100)
-        rect((pos_x + 15 + (i * 20), pos_y + 40), width/10, height/10)
-        # --------------------------------------------------------------------
 
-    # BOTTOM ROW
-    for i in range(0, 3):
-        fill(100, 100, 100)
-        rect((pos_x + 15 + (i * 20), pos_y + 70), width/10, height/10)
-        # --------------------------------------------------------------------
+def change_window_values():
+
+        global heightAddValue, multValue, windowIncrement
+    
+
+        if windowIncrement == 0:
+            heightAddValue += 10
+            multValue = 10
+
+        elif windowIncrement == 3:
+            heightAddValue += 30
+            multValue = 20
+        
+        elif windowIncrement == 6:
+            heightAddValue += 60
+            multValue = 30
+
+        windowIncrement += 1
 
 
 
 """function draws moutains
 
 """
-def background_(pos_x_1, pos_y_1,pos_x_2, pos_y_2):
-    pass
+def draw_background(pos_x_1, pos_y_1,pos_x_2, pos_y_2):
     # TODO : * Mountains *
     # TODO : Receive line position as parameter
-    #line((pos_x_1, pos_y_1), (pos_x_2, pos_y_2))
-
-
-
+    line((pos_x_1, pos_y_1), (pos_x_2, pos_y_2))
 # --------------------------------------------------------
+
+
 """Function draws a windmill
     1.
     2.
@@ -236,14 +275,14 @@ def windmill():
     rect ((700),(200),10,20)
     triangle((700,200),(700,220),(710,210)) # CONFIGURAR TRIANGULO
 
-    for i in range(0,4):
+    #for i in range(0,4):
 
         # line 
         # line((700,200),(700,220)) # CONFIGURAR LINHA
 
-        with push_matrix():
-            global ang
-            rect((700,200),10,20) # CONFIGURAR RETANGULO
+        #with push_matrix():
+           # global ang
+            #rect((700,200),10,20) # CONFIGURAR RETANGULO
             # aplicar rotação CORRETA   https://p5.readthedocs.io/en/latest/tutorials/2D%20transformations.html#rotation
             # ang += 1
             # -----------------------------
@@ -261,9 +300,20 @@ def draw():
     
     background(72)
 
+    # BACKGROUND => MOUNTAINS
+    draw_background(300,200, 400, 300)
+
+    # Windmill
+    windmill()
+
+    # STREET
     street()
-    draw_buildings(300, 200, 50, 80)
+
+    # BUILDINGS
+    draw_building(300, 200, 50, 80)
+
     draw_car_body()
     draw_car_wheels()
+      
       
 run()
